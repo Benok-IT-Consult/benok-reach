@@ -92,6 +92,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
       app_name = std::wstring(app_name_buffer);
     }
   }
+  // Benok Reach: windows are titled with the display name (matches getWindowName in common.dart
+  // and get_app_display_name in src/common.rs).
+  if (app_name == L"BenokReach") {
+    app_name = L"Benok Reach";
+  }
 
   // Uri links dispatch
   HWND hwnd = ::FindWindowW(getWindowClassName(), app_name.c_str());

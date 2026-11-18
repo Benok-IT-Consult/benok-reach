@@ -3061,7 +3061,7 @@ int versionCmp(String v1, String v2) {
 }
 
 String getWindowName({WindowType? overrideType}) {
-  final name = bind.mainGetAppNameSync();
+  final name = appName; // Benok Reach: display name
   switch (overrideType ?? kWindowType) {
     case WindowType.Main:
       return name;
@@ -4213,7 +4213,7 @@ List<String> getPrinterNames() {
   }
   try {
     final List<dynamic> printerNamesList = jsonDecode(printerNamesJson);
-    final appPrinterName = '$appName Printer';
+    final appPrinterName = '${bind.mainGetAppNameSync()} Printer';
     return printerNamesList
         .map((e) => e.toString())
         .where((name) => name != appPrinterName)
@@ -4228,6 +4228,8 @@ String _appName = '';
 String get appName {
   if (_appName.isEmpty) {
     _appName = bind.mainGetAppNameSync();
+    // Benok Reach: display name (the internal name BenokReach has no space).
+    if (_appName == 'BenokReach') _appName = 'Benok Reach';
   }
   return _appName;
 }

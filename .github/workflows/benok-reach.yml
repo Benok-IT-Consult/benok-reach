@@ -1,0 +1,24 @@
+# Benok Reach - builds the branded Windows (x64) and Android apps and publishes them as a GitHub release.
+# Run it from the Actions tab ("Benok Reach build" -> Run workflow).
+name: Benok Reach build
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to publish to"
+        required: true
+        default: "benok-reach-1.5.3"
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  build:
+    uses: ./.github/workflows/flutter-build.yml
+    secrets: inherit
+    with:
+      upload-artifact: true
+      upload-tag: ${{ inputs.tag }}
+      publish-update-metadata: false

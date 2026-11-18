@@ -2705,6 +2705,17 @@ pub fn get_builtin_option(key: &str) -> String {
         .unwrap_or_default()
 }
 
+/// Benok Reach: the name shown to people (window titles). The internal app name has no space
+/// because it is used unquoted in Windows service and taskkill commands.
+pub fn get_app_display_name() -> String {
+    let name = get_app_name();
+    if name == "BenokReach" {
+        "Benok Reach".to_owned()
+    } else {
+        name
+    }
+}
+
 #[inline]
 pub fn is_custom_client() -> bool {
     get_app_name() != "RustDesk"
